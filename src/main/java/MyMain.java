@@ -46,13 +46,22 @@ public class MyMain {
 
     // Wrapper Method (Provided for you):
     public static int sum(int[] arr) {
+
         return sumTR(arr,0, 0);
     }
 
     // Tail Recursive Method:
     public static int sumTR(int[] arr, int i, int sum) {
-        // YOUR CODE HERE
-        return -1;
+        if (arr.length == 0) {
+            return 0;
+        }
+        if (i>arr.length-1){
+            return sum;
+        }
+        else{
+            return sumTR(arr,i+1,sum+arr[i]);
+        }
+
     }
 
 
@@ -70,13 +79,29 @@ public class MyMain {
     // Wrapper Method (Provided for you):
     public static boolean search(ArrayList<Integer> list, int x) {
         // YOUR CODE HERE
-        return false;
+        return searchTR(list,0,x);
     }
 
     // Tail Recursive Method:
     public static boolean searchTR(ArrayList<Integer> list, int x, int i) {
-        // YOUR CODE HERE
-        return false;
+        if (list.size() == 0) {
+            return false;
+        }
+        if (x>list.size()-1){
+            return false;
+        }
+        if (list.get(x)==i){
+            return true;
+        }
+        if (list.size() == 1 &&list.get(0)==i){
+            return true;
+        }
+        if (list.size() == 1 &&list.get(0)!=i){
+            return true;
+        }
+        else{
+            return searchTR(list,x+1,i);
+        }
     }
 
 
@@ -90,9 +115,22 @@ public class MyMain {
     // Wrapper Method (Provided for you):
     public static boolean allEven(int[] arr) {
         // YOUR CODE HERE
-        return false;
+        return allEvenTR(arr,0);
     }
-
+    public static boolean allEvenTR(int[] arr, int i) {
+        if (arr.length == 0) {
+            return false;
+        }
+        if (i>arr.length-1){
+            return true;
+        }
+        if (arr[i]%2!=0){
+            return false;
+        }
+        else{
+            return allEvenTR(arr,i+1);
+        }
+    }
     // Tail Recursive Method:
     // You should write this yourself!
 
@@ -137,9 +175,25 @@ public class MyMain {
     // Wrapper method
     public static boolean hasCountCopies(int[] arr, int x, int count) {
         // YOUR CODE HERE
-        return false;
+        return hasCountCopiesTR(arr,x,count,0,0);
     }
-
+    public static boolean hasCountCopiesTR(int[] arr, int x, int count, int num, int i) {
+        if (arr.length==0){
+            return false;
+        }
+        if (i>arr.length-1&&num==count){
+            return true;
+        }
+        else if(i>arr.length-1&&num!=count){
+            return false;
+        }
+        if(arr[i]==x){
+            return (hasCountCopiesTR(arr, x, count, num+1,i+1));
+        }
+        else{
+            return (hasCountCopiesTR(arr, x, count, num,i+1));
+        }
+    }
     // You may want a tail recursive method
 
 
@@ -148,10 +202,27 @@ public class MyMain {
 
     // Wrapper method
     public static boolean isSorted(ArrayList<Integer> list) {
-        // YOUR CODE HERE
-        return false;
+        return isSortedTR(list,1,0);
     }
-
+    public static boolean isSortedTR(ArrayList<Integer> list,int i, int count) {
+        if (i>list.size()-1&&count==list.size()-1){
+            return true;
+        }
+        else if(i>list.size()-1&&count!=list.size()-1){
+            return false;
+        }
+        if(list.size()<=1){
+            return true;
+        }
+        else{
+            if(list.get(i)>=list.get(i-1)){
+                return isSortedTR(list,i+1,count+1);
+            }
+            else{
+                return isSortedTR(list,i+1,count);
+            }
+        }
+    }
     // You may want a tail recursive method
 
 
@@ -183,8 +254,23 @@ public class MyMain {
 
     // No tail recursion necessary!
     public static boolean escape(char[][] mat, int row, int col) {
-        // YOUR CODE HERE
-        return false;
+        if(row>mat[0].length-1||col>mat.length-1){
+            return false;
+        }
+        else if(mat[row][col] =='w'){
+            return false;
+        }
+        else if(mat[row][col] =='f'){
+            return true;
+        }
+        else if(mat[row][col] =='*'){
+            return true;
+        }
+        else {
+            mat[row][col]='*';
+            return(escape(mat, row, col));
+        }
+
     }
 
 
